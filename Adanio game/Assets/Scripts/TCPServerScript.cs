@@ -24,14 +24,13 @@ public class TCPServerScript : MonoBehaviour
     {
         
     }
-
-    public void StartServer()
+    IEnumerator NumStartServer()
     {
         int port = 50000;
-        try
-        {
+        //try
+        //{
             IPAddress ipAddress = IPAddress.Parse(ip);
-            
+
 
             TcpListener myListener = new TcpListener(ipAddress, port);
 
@@ -40,6 +39,11 @@ public class TCPServerScript : MonoBehaviour
             Debug.Log("The is running at port " + port.ToString());
             Debug.Log("The Local Endpoint is : " + myListener.LocalEndpoint);
             Debug.Log("Waiting for a connection...");
+
+            while (!myListener.Pending())
+            {
+                yield return null;
+            }
 
             Socket socket = myListener.AcceptSocket();
             Debug.Log("Connection accepted from " + socket.RemoteEndPoint);
@@ -56,10 +60,14 @@ public class TCPServerScript : MonoBehaviour
 
             socket.Close();
             myListener.Stop();
-        }
-        catch(Exception e)
-        {
-            Debug.Log("Error..." + e);
-        }
+        //}
+        //catch (Exception e)
+        //{
+        //    Debug.Log("Error..." + e);
+        //}
+    }
+    public void StartServer()
+    {
+        StartCoroutine(NumStartServer());
     }
 }

@@ -55,7 +55,7 @@ public class TCPClientScript : MonoBehaviour
         }
         catch(Exception e)
         {
-            Debug.Log("Error... " + e.StackTrace);
+            Debug.Log("Error... " + e.Message);
         }
     }
 }
