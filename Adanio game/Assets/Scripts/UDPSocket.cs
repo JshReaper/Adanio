@@ -13,6 +13,11 @@ public class UDPSocket : MonoBehaviour
     private State state = new State();
     private EndPoint endPointFrom = new IPEndPoint(IPAddress.Any, 0);
     private AsyncCallback recv = null;
+
+    [SerializeField]
+    string ip;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +32,12 @@ public class UDPSocket : MonoBehaviour
 
     public void StartServer()
     {
-        Server("127.0.0.1", 25000);
+        Server(ip, 25000);
     }
 
     public void StartClient()
     {
-        Client("127.0.0.1", 25000);
+        Client(ip, 25000);
         Send("TEST!");
     }
 

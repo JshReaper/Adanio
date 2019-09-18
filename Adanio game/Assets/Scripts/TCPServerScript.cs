@@ -8,6 +8,11 @@ using System.Text;
 
 public class TCPServerScript : MonoBehaviour
 {
+    [SerializeField]
+    string ip;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +30,7 @@ public class TCPServerScript : MonoBehaviour
         int port = 50000;
         try
         {
-            IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress ipAddress = IPAddress.Parse(ip);
             
 
             TcpListener myListener = new TcpListener(ipAddress, port);

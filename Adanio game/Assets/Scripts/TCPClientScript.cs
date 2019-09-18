@@ -9,6 +9,8 @@ using System.Net.Sockets;
 
 public class TCPClientScript : MonoBehaviour
 {
+    [SerializeField]
+    string ip;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class TCPClientScript : MonoBehaviour
             TcpClient tcpCliant = new TcpClient();
             Debug.Log("Connecting... ");
 
-            tcpCliant.Connect("127.0.0.1", port);
+            tcpCliant.Connect(ip, port);
 
             Debug.Log("Connected");
 
