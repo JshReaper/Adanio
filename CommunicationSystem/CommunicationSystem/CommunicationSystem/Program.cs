@@ -11,26 +11,24 @@ namespace CommunicationSystem
     class Program
     {
         static List<Connection> connections = new List<Connection>();
-        static string path = @"Direct=TCP:192.168.0.100\globalQueue";
+        static string path = @".\PRIVATE$\globalQueue";
         static void Main(string[] args)
         {
             if (!MessageQueue.Exists(path))
             {
                 Console.WriteLine("Creating new queue for service");
-                MessageQueue.Create(path,true);
+                MessageQueue.Create(path);
             }
 
             MessageQueue reciever = new MessageQueue(path);
+            reciever.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
 
             reciever.ReceiveCompleted += new ReceiveCompletedEventHandler(MyReceiveCompleted);
+            Console.WriteLine("Service is ready to recieve commands");
+            reciever.BeginReceive();
 
-            while (true)
-            {
-                reciever.BeginReceive();
 
-                
-            }
-
+            Console.ReadLine();
 
         }
 
@@ -84,7 +82,8 @@ namespace CommunicationSystem
                                 targets += co.messageID + ":";
                             }
                         }
-                        targets = targets.Remove(targets.Length - 1, 1);
+                        if(targets.Length > 0)
+                            targets = targets.Remove(targets.Length - 1, 1);
                         Message msg = new Message("TARGETS:" + targets);
                         mq.Path = from;
                         mq.Send(msg); 

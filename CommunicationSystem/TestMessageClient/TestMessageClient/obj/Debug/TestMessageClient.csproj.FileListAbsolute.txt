@@ -1,0 +1,7 @@
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\TestMessageClient\TestMessageClient\bin\Debug\TestMessageClient.exe.config
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\TestMessageClient\TestMessageClient\bin\Debug\TestMessageClient.exe
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\TestMessageClient\TestMessageClient\bin\Debug\TestMessageClient.pdb
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\TestMessageClient\TestMessageClient\obj\Debug\TestMessageClient.csprojAssemblyReference.cache
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\TestMessageClient\TestMessageClient\obj\Debug\TestMessageClient.csproj.CoreCompileInputs.cache
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\TestMessageClient\TestMessageClient\obj\Debug\TestMessageClient.exe
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\TestMessageClient\TestMessageClient\obj\Debug\TestMessageClient.pdb

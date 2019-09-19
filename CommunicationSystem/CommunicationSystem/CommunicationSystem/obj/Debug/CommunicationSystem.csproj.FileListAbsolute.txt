@@ -1,0 +1,7 @@
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\CommunicationSystem\CommunicationSystem\bin\Debug\CommunicationSystem.exe.config
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\CommunicationSystem\CommunicationSystem\bin\Debug\CommunicationSystem.exe
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\CommunicationSystem\CommunicationSystem\bin\Debug\CommunicationSystem.pdb
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\CommunicationSystem\CommunicationSystem\obj\Debug\CommunicationSystem.csprojAssemblyReference.cache
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\CommunicationSystem\CommunicationSystem\obj\Debug\CommunicationSystem.csproj.CoreCompileInputs.cache
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\CommunicationSystem\CommunicationSystem\obj\Debug\CommunicationSystem.exe
+C:\Users\tobi1\Documents\Git Projects\Adanio\CommunicationSystem\CommunicationSystem\CommunicationSystem\obj\Debug\CommunicationSystem.pdb
