@@ -32,16 +32,70 @@ namespace AdanioLogin.App_Code
                 {
 
                 }
+                rdr.Close();
                 conn.ChangeDatabase("adaniologin");
+                sql = "CREATE TABLE IF NOT EXISTS adaniologin.users (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT," +
+                    "username VARCHAR(50) NOT NULL UNIQUE," +
+                    "password VARCHAR(255) NOT NULL," +
+                    "created_at DATETIME DEFAULT CURRENT_TIMESTAMP);";
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+
+                }
+                rdr.Close();
+
+                sql = "SELECT * FROM adaniologin.users";
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                if(!rdr.HasRows)
+                {
+                    rdr.Close();
+
+                    sql = "INSERT INTO users (username, password) VALUES ('dummy', 'dumdum')";
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+
+                    }
+                    rdr.Close();
+                }
+                else
+                {
+                    rdr.Close();
+                }
+                
             }
             catch (System.Exception e)
             {
                 throw  e;
             }
         }
-        public void Login()
+        public string Login(string username, string password)
         {
-
+           string sql = "SELECT * FROM adaniologin.users WHERE username = '" + password+"'";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                if (rdr.HasRows)
+                {
+                    if(rdr[2].ToString() == password)
+                    {
+                        rdr.Close();
+                        return rdr[0].ToString();
+                    }
+                }
+                else
+                {
+                    rdr.Close();
+                    return "user not found";
+                }
+            }
+            rdr.Close();
+            return "user not found";
         }
         
     }
