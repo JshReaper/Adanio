@@ -10,7 +10,7 @@ namespace TestMessageClient
     class Program
     {
         static string serverPath = @"FormatName:Direct=TCP:192.168.0.100\PRIVATE$\globalQueue";
-        static string localQueue = ".\\PRIVATE$\\localMessageQueue";
+        static string localQueue = @".\PRIVATE$\localMessageQueue";
 
         static void Main(string[] args)
         {
@@ -23,13 +23,13 @@ namespace TestMessageClient
 
             MessageQueue mq = new MessageQueue(localQueue);
 
-            string myLocalName = mq.MachineName;
-            Console.WriteLine(mq.MachineName);
+            string myLocalName = System.Environment.MachineName;
+            Console.WriteLine(myLocalName);
             mq.Path = serverPath;
             Console.ReadKey();
 
             //Command:From:Target:Message
-            Message m = new Message("NEW:" + myLocalName + ":none:" + "Topps");
+            Message m = new Message("TARGETS:" + myLocalName + ":none:" + "Topps");
             mq.Send(m);
 
             Console.WriteLine("Sent message: " + m.Body.ToString());

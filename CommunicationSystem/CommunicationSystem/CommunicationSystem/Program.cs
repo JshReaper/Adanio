@@ -85,7 +85,7 @@ namespace CommunicationSystem
                         if(targets.Length > 0)
                             targets = targets.Remove(targets.Length - 1, 1);
                         Message msg = new Message("TARGETS:" + targets);
-                        mq.Path = from;
+                        mq.Path = @"FormatName:Direct=OS:" + from + @"\PRIVATE$\localMessageQueue";
                         mq.Send(msg); 
                         break;
 
