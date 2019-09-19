@@ -21,14 +21,15 @@ namespace TestMessageClient
             }
 
 
-            MessageQueue mq = new MessageQueue(serverPath);
+            MessageQueue mq = new MessageQueue(localQueue);
 
-
+            string myLocalName = mq.MachineName;
             Console.WriteLine(mq.MachineName);
+            mq.Path = serverPath;
             Console.ReadKey();
 
             //Command:From:Target:Message
-            Message m = new Message("NEW:" + mq.MachineName + ":none:" + "Topps");
+            Message m = new Message("NEW:" + myLocalName + ":none:" + "Topps");
             mq.Send(m);
 
             Console.WriteLine("Sent message: " + m.Body.ToString());
