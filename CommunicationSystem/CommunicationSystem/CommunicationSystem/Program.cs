@@ -66,8 +66,8 @@ namespace CommunicationSystem
                             {
                                 //Target exists
                                 Message ms = new Message(string.Format("MSG:{0}:{1}:{2}",from,targetDest,message));
-                                Console.WriteLine("Received a Message Command from: " + from + ", directod to: " + targetDest);
-                                mq.Path = co.address;
+                                Console.WriteLine("Received a Message Command from: " + from + ", directed to: " + co.address);
+                                mq.Path = @"FormatName:Direct=OS:" + co.address + @"\PRIVATE$\localMessageQueue";
                                 mq.Send(ms);
                             }
                         }

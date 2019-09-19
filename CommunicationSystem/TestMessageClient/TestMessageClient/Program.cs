@@ -29,12 +29,13 @@ namespace TestMessageClient
             Console.ReadKey();
 
             //Command:From:Target:Message
-            Message m = new Message("TARGETS:" + myLocalName + ":none:" + "Topps");
+            Message m = new Message("NEW:" + myLocalName + ":JoJo:" + "Topps");
             mq.Send(m);
 
             Console.WriteLine("Sent message: " + m.Body.ToString());
 
             mq.Path = localQueue;
+            mq.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
             mq.ReceiveCompleted += new ReceiveCompletedEventHandler(MyReceiveCompleted);
             mq.BeginReceive();
 
