@@ -54,9 +54,20 @@ namespace CommunicationSystem
                 switch (cmd)
                 {
                     case "NEW":
-                        Connection c = new Connection(from,message);
-                        connections.Add(c);
-                        Console.WriteLine("Received new connection: " + from + ", With name: " + message );
+                        bool exists = false;
+                        foreach (var co in connections)
+                        {
+                            if (co.messageID == message)
+                            {
+                                exists = true;
+                            }
+                        }
+
+                        if (!exists) {
+                            Connection c = new Connection(from, message);
+                            connections.Add(c);
+                            Console.WriteLine("Received new connection: " + from + ", With name: " + message);
+                        }
                         break;
 
                     case "MSG":

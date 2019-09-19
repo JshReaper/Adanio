@@ -29,7 +29,7 @@ namespace TestMessageClient
             Console.ReadKey();
 
             //Command:From:Target:Message
-            Message m = new Message("NEW:" + myLocalName + ":JoJo:" + "Topps");
+            Message m = new Message("MSG:" + myLocalName + ":blops:" + "Warhammer! NOW!");
             mq.Send(m);
 
             Console.WriteLine("Sent message: " + m.Body.ToString());
