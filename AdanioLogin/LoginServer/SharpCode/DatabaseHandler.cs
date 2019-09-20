@@ -75,7 +75,7 @@ namespace LoginServer.SharpCode
         }
         public bool Login(string username, string password)
         {
-            string sql = "SELECT * FROM adaniologin.users WHERE username = '" + password + "'";
+            string sql = "SELECT * FROM adaniologin.users WHERE username = '" + username + "'";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())

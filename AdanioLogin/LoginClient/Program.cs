@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Net.Http;
 using System.Text;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 
 namespace LoginClient
 {
@@ -13,29 +12,54 @@ namespace LoginClient
     {
         static void Main(string[] args)
         {
-            User user = new User("dummy", "dumdum");
-            Console.Write( Get(user));
+            AttemptLogin();
+
             Console.ReadKey();
-            System.Net.Http.Headers.
+
         }
-
-        private static string Get(User user)
+        static void AttemptLogin()
         {
-            MemoryStream memorystream = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(memorystream, user);
-            byte[] userBytes = memorystream.ToArray();
-
-            string userStr = "";
-
-            foreach (var b in userBytes)
+            Console.Write("Enter credentials:\nUserName: ");
+            user = Console.ReadLine();
+            Console.Write("Password: ");
+            pass = Console.ReadLine();
+            Console.WriteLine(user + ":" + pass);
+            string result = Get();
+            if (result == "The remote server returned an error: (401) Unauthorized.")
             {
-                userStr += b;
+                Console.Clear();
+                Console.WriteLine("Invalid login, Please login again");
+                AttemptLogin();
             }
+            else
+            {
+                Console.WriteLine(result);
+            }
+        }
+        static string user;
+        static string pass;
+        private static string Get()
+        {
             string strResponseValue = string.Empty;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:49770/api/Values?userStr=" + userStr);
-            request.Method = "GET";
+            HttpWebRequest request = null;
             HttpWebResponse response = null;
+            try
+            {
+                //deployed
+                //request = (HttpWebRequest)WebRequest.Create("http://localhost/AdanioLogin/api/values");
+
+                //debugging
+                request = (HttpWebRequest)WebRequest.Create("http://localhost:58576/api/values");
+
+                request.Credentials = new NetworkCredential(user, pass); 
+                request.Method = "GET";
+                response = null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + ":"+ e.InnerException.Message);
+            }
+            
             try
             {
                 response = (HttpWebResponse)request.GetResponse();
@@ -53,7 +77,12 @@ namespace LoginClient
             }
             catch (Exception ex)
             {
-                strResponseValue = "{\"errorMessages\":[\"" + ex.Message.ToString() + "\"],\"errors\":{}}";
+                if(ex.InnerException != null)
+                    strResponseValue = ex.Message.ToString() + ": " + ex.InnerException.Message.ToString();
+                else
+                {
+                    strResponseValue = ex.Message.ToString();
+                }
             }
             finally
             {
@@ -65,18 +94,5 @@ namespace LoginClient
             return strResponseValue;
         }
     }
-    [Serializable]
-    public class User
-    {
-        public User(string username, string password)
-        {
-            Username = username;
-            Password = password;
-        }
-
-        public string Username { get; }
-        public string Password { get; }
-    }
-
-
 }
+       
