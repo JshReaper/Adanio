@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Messaging;
 
 namespace CommunicationSystem
-{ 
+{
 
     class Program
     {
@@ -41,7 +41,7 @@ namespace CommunicationSystem
 
                 // End the asynchronous receive operation.
                 Message m = mq.EndReceive(asyncResult.AsyncResult);
-               
+
 
                 //Command:From:Target:Message
                 string[] content = m.Body.ToString().Split(':');
@@ -63,7 +63,8 @@ namespace CommunicationSystem
                             }
                         }
 
-                        if (!exists) {
+                        if (!exists)
+                        {
                             Connection c = new Connection(from, message);
                             connections.Add(c);
                             Console.WriteLine("Received new connection: " + from + ", With name: " + message);
@@ -73,10 +74,10 @@ namespace CommunicationSystem
                     case "MSG":
                         foreach (var co in connections)
                         {
-                            if(co.messageID == targetDest)
+                            if (co.messageID == targetDest)
                             {
                                 //Target exists
-                                Message ms = new Message(string.Format("MSG:{0}:{1}:{2}",from,targetDest,message));
+                                Message ms = new Message(string.Format("MSG:{0}:{1}:{2}", from, targetDest, message));
                                 Console.WriteLine("Received a Message Command from: " + from + ", directed to: " + co.address);
                                 mq.Path = @"FormatName:Direct=OS:" + co.address + @"\PRIVATE$\localMessageQueue";
                                 mq.Send(ms);
@@ -89,17 +90,42 @@ namespace CommunicationSystem
                         string targets = "";
                         foreach (var co in connections)
                         {
-                            if (co.address != from) {
+                            if (co.address != from)
+                            {
                                 targets += co.messageID + ":";
                             }
                         }
-                        if(targets.Length > 0)
+                        if (targets.Length > 0)
                             targets = targets.Remove(targets.Length - 1, 1);
                         Message msg = new Message("TARGETS:" + targets);
                         mq.Path = @"FormatName:Direct=OS:" + from + @"\PRIVATE$\localMessageQueue";
-                        mq.Send(msg); 
+                        mq.Send(msg);
                         break;
-
+                    case "MSGALL":
+                        Message msAll;
+                        foreach (var co in connections)
+                        {
+                            msAll = new Message("MSG:" + from + ":" + co.messageID + ":" + message);
+                            mq.Path = @"FormatName:Direct=OS:" + co.address + @"\PRIVATE$\localMessageQueue";
+                            mq.Send(msAll);
+                        }
+                        break;
+                    case "MSGROUP":
+                        string[] recipents = targetDest.Split('#');
+                        Message msX;
+                        for (int i = 0; i < recipents.Length; i++)
+                        {
+                            foreach (var co in connections)
+                            {
+                                if (co.messageID == recipents[i])
+                                {
+                                    msX = new Message("MSG:" + from + ":" + co.messageID + ":" + message);
+                                    mq.Path = @"FormatName:Direct=OS:" + co.address + @"\PRIVATE$\localMessageQueue";
+                                    mq.Send(msX);
+                                }
+                            }
+                        }
+                        break;
                     default:
                         Console.WriteLine("Invalid command recieved from: " + m.SenderId.ToString());
                         break;
@@ -116,7 +142,7 @@ namespace CommunicationSystem
             }
 
             // Handle other exceptions.
-            
+
             return;
         }
 
@@ -133,6 +159,6 @@ namespace CommunicationSystem
         public string address;
         public string messageID;
     }
-    
+
 
 }
