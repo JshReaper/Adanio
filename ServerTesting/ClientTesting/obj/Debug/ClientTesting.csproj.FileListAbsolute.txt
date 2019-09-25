@@ -1,0 +1,11 @@
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\bin\Debug\ClientTesting.exe.config
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\bin\Debug\ClientTesting.exe
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\bin\Debug\ClientTesting.pdb
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\bin\Debug\Newtonsoft.Json.dll
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\bin\Debug\Open.Nat.dll
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\bin\Debug\Newtonsoft.Json.xml
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\bin\Debug\Open.Nat.xml
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\obj\Debug\ClientTesting.csprojAssemblyReference.cache
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\obj\Debug\ClientTesting.csproj.CopyComplete
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\obj\Debug\ClientTesting.exe
+D:\Dokumenter\Visual Studio 2019\ServerTesting\ClientTesting\obj\Debug\ClientTesting.pdb

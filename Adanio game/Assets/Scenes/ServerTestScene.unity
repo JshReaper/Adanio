@@ -622,8 +622,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1363145479}
   m_HandleRect: {fileID: 1363145478}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c233e7b7599b1489a98c73d21885f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: localhost
+  ip: 10.131.68.162
 --- !u!4 &832167385
 Transform:
   m_ObjectHideFlags: 0
@@ -1512,8 +1512,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1727686631}
   m_HandleRect: {fileID: 1727686630}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.61246437
+  m_Value: 0.99999976
+  m_Size: 0.55871934
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937c118ebab59c6458c8ae008a1dfc4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: localhost
+  ip: 10.131.68.162
 --- !u!4 &1098630950
 Transform:
   m_ObjectHideFlags: 0
