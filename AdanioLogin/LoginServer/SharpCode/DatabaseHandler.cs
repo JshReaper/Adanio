@@ -97,6 +97,30 @@ namespace LoginServer.SharpCode
             rdr.Close();
             return false;
         }
+        public bool SignUp(string username, string password)
+        {
+            string sql = "SELECT * FROM adaniologin.users where username = '" + username + "'";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            if (!rdr.HasRows)
+            {
+                rdr.Close();
+                string values = "('" + username + "', '" + password + "')"; 
+                sql = "INSERT INTO users (username, password) VALUES "+values;
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
 
+                }
+                rdr.Close();
+                return true;
+            }
+            else
+            {
+                rdr.Close();
+                return false;
+            }
+        }
     }
 }
