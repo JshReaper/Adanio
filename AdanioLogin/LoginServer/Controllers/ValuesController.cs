@@ -24,15 +24,28 @@ namespace LoginServer.Controllers
         }
 
         // POST api/values
-        [Authorize]
-        public void Post([FromBody]string value)
+        //[Authorize]
+        public HttpResponseMessage Post(HttpRequestMessage request)
         {
+            string value = request.Content.ReadAsStringAsync().Result;
+            int separator = value.IndexOf(':');
+            string name = value.Substring(0, separator);
+            string password = value.Substring(separator + 1);
+            if(SharpCode.DatabaseHandler.Instance.SignUp(name, password))
+            {
+                return new HttpResponseMessage(HttpStatusCode.Created);
+            }
+            else
+            {
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            }
         }
 
         // PUT api/values/5
         [Authorize]
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE api/values/5
