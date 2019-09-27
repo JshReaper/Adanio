@@ -175,14 +175,12 @@ namespace LoginClient
             }
             catch (Exception e)
             {
-                if(e.Message == "The remote server returned an error: (409) Conflict.")
+                if(e.Message.Contains("(409)"))
                 {
                     return "username already exist";
                 }
                 return e.Message;
             }
-            
         }
     }
 }
-       
