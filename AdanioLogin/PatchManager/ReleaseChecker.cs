@@ -24,6 +24,10 @@ namespace PatchManager
         {
             client = new GitHubClient(new ProductHeaderValue(appname+"PatchManager"));
             path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\"+appname;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             this.owner = owner;
             this.reponame = reponame;
         }
