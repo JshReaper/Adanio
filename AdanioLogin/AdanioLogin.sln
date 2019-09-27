@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginClient", "LoginClient\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginServer", "LoginServer\LoginServer.csproj", "{EFEDB9BD-A6C4-4F73-A4E1-E1D81FB82460}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchManager", "PatchManager\PatchManager.csproj", "{846DFF21-55BE-456D-9352-0127F683E5A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EFEDB9BD-A6C4-4F73-A4E1-E1D81FB82460}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFEDB9BD-A6C4-4F73-A4E1-E1D81FB82460}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFEDB9BD-A6C4-4F73-A4E1-E1D81FB82460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{846DFF21-55BE-456D-9352-0127F683E5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{846DFF21-55BE-456D-9352-0127F683E5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{846DFF21-55BE-456D-9352-0127F683E5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{846DFF21-55BE-456D-9352-0127F683E5A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
