@@ -1,0 +1,9 @@
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\bin\Debug\TCPOption.dll.config
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\bin\Debug\TCPOption.dll
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\bin\Debug\TCPOption.pdb
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\bin\Debug\Newtonsoft.Json.dll
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\bin\Debug\Newtonsoft.Json.xml
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\obj\Debug\TCPOption.csproj.CopyComplete
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\obj\Debug\TCPOption.dll
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\obj\Debug\TCPOption.pdb
+D:\Dokumenter\Visual Studio 2019\ServerTesting\TCPOption\obj\Debug\TCPOption.csprojAssemblyReference.cache

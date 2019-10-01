@@ -7,6 +7,9 @@ public class AsyncTCP : MonoBehaviour
 {
     private AsynchronousSocketListener aListener;
     private AsynchronousClient aClient;
+
+    [SerializeField]
+    private string machineName;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,9 @@ public class AsyncTCP : MonoBehaviour
 
     public void CreateClientExample()
     {
+        if (machineName != null)
+            AsynchronousClient.MachineName = machineName;
+
         aClient = new AsynchronousClient();
 
         aClient.Send<string>(AsynchronousClient.Client, "Test message");
