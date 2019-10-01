@@ -87,6 +87,21 @@ namespace PatchManager
             Task t = DownLoadReleaseAsync();
             t.Wait();
         }
+        private void clearFolder(string FolderName)
+        {
+            DirectoryInfo dir = new DirectoryInfo(FolderName);
+
+            foreach (FileInfo fi in dir.GetFiles())
+            {
+                fi.Delete();
+            }
+
+            foreach (DirectoryInfo di in dir.GetDirectories())
+            {
+                clearFolder(di.FullName);
+                di.Delete();
+            }
+        }
         async Task DownLoadReleaseAsync()
         {
             if(latestrelease == null) {
@@ -105,11 +120,22 @@ namespace PatchManager
             File.WriteAllText(path + "\\version.json", JsonConvert.SerializeObject(latestrelease,Formatting.Indented));
 
             DownloadStatus = true;
-            
 
-            ZipFile.ExtractToDirectory("Adanio.zip", path);
+            if (Directory.Exists(path + "\\game"))
+            {
+                clearFolder(path + "\\game");
+                Directory.CreateDirectory(path + "\\game");
+            }
+            else
+            {
+                Directory.CreateDirectory(path + "\\game");
+            }
 
-            System.Diagnostics.Process.Start(path+ "\\Adanio.exe");
+            ZipFile.ExtractToDirectory(path + "\\Adanio.zip",path +"\\game");
+
+            File.Delete(path + "\\Adanio.zip");
+
+            System.Diagnostics.Process.Start(path+ "\\game\\Adanio.exe");
         }
     }
 }
