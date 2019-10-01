@@ -52,22 +52,25 @@ namespace PatchManager
     {
         private readonly string owner;
         private readonly string reponame;
-        GitHubClient client;
-        Release latestrelease;
-        string path;
+        private GitHubClient client;
+        private Release latestrelease;
+        private string path;
         public bool DownloadStatus { get; private set; }
         public bool CheckStatus { get; private set; }
+
         public ReleaseChecker(string appname, string owner, string reponame)
         {
-            client = new GitHubClient(new ProductHeaderValue(appname+"PatchManager"));
-            path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\"+appname;
+            client = new GitHubClient(new ProductHeaderValue(appname + "PatchManager"));
+            path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + appname;
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
+
             this.owner = owner;
             this.reponame = reponame;
         }
+
         public bool IsNewRelease
         {
             get
@@ -75,12 +78,12 @@ namespace PatchManager
                 bool toreturn = CheckIfNewRelease().Result;
                 while (!CheckStatus)
                 {
-
                 }
                 return toreturn;
             }
         }
-        async Task<bool> CheckIfNewRelease()
+
+        private async Task<bool> CheckIfNewRelease()
         {
             CheckStatus = false;
             latestrelease = await client.Repository.Release.GetLatest(owner, reponame);
@@ -95,7 +98,7 @@ namespace PatchManager
                 string ex = e.Message;
                 File.Create(path + "\\version.json");
             }
-            if(current == null)
+            if (current == null)
             {
                 CheckStatus = true;
                 return true;
@@ -112,13 +115,15 @@ namespace PatchManager
                 return false;
             }
         }
+
         public void StartDownload()
         {
             DownloadStatus = false;
             Thread th = new Thread(DownloadRelease);
             th.Start();
         }
-        void DownloadRelease()
+
+        private void DownloadRelease()
         {
             Task t = DownLoadReleaseAsync();
             t.Wait();
