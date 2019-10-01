@@ -26,13 +26,13 @@ namespace PatchManager
                 {
                     ticks++;
                     dotTick++;
-                    if(dotTick> 100)
+                    if (dotTick > 100)
                     {
                         Console.Write(".");
                         dotTick = 0;
-                        
+
                     }
-                    if(ticks> 1000)
+                    if (ticks > 1000)
                     {
                         Console.Clear();
                         Console.WriteLine("Downloading new release");
@@ -46,9 +46,8 @@ namespace PatchManager
                 Console.WriteLine("Version up to date");
             }
             
-            Console.ReadKey();
         }
-        
-       
+
+
     }
 }
