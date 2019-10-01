@@ -18,13 +18,34 @@ namespace PatchManager
             if (checker.IsNewRelease)
             {
                 checker.StartDownload();
-            }
-            while (!checker.DownloadStatus)
-            {
                 Console.WriteLine("Downloading new release");
-                Console.Clear();
+
+                int ticks = 0;
+                int dotTick = 0;
+                while (!checker.DownloadStatus)
+                {
+                    ticks++;
+                    dotTick++;
+                    if(dotTick> 100)
+                    {
+                        Console.Write(".");
+                        dotTick = 0;
+                        
+                    }
+                    if(ticks> 1000)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Downloading new release");
+                        ticks = 0;
+                    }
+                }
+                Console.WriteLine("Download completed");
             }
-            Console.WriteLine("Download completed");
+            else
+            {
+                Console.WriteLine("Version up to date");
+            }
+            
             Console.ReadKey();
         }
         
