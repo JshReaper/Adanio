@@ -5,9 +5,9 @@ using UnityEngine;
 public class TextTerminationTimer : MonoBehaviour
 {
     [SerializeField]
-    float lifeTime;
+    public float lifeTime;
     [SerializeField]
-    float readTime = 4;
+    public float readTime = 4;
     float targetTime;
     float fadeSpeed = 2f;
     TMPro.TextMeshProUGUI text;
@@ -17,7 +17,7 @@ public class TextTerminationTimer : MonoBehaviour
     void Start()
     {
         targetTime = Time.time + readTime + lifeTime;
-        text = GetComponent<TMPro.TextMeshProUGUI>();
+        text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
     }
 
     // Update is called once per frame
