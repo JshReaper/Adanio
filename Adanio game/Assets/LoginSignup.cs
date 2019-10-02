@@ -14,12 +14,12 @@ public class LoginSignup : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI logsTxt;
 
-    [SerializeField] string ip;
+    [SerializeField] TMP_InputField ip;
     ReleaseChecker releaseChecker;
-    private void Awake()
+   
+    public void OnIpChange()
     {
-        LoginSystem.Ip = ip;
-
+        LoginSystem.Ip = ip.text;
     }
     // Start is called before the first frame update
     void Start()
@@ -34,23 +34,22 @@ public class LoginSignup : MonoBehaviour
     }
     public void LoginBtn()
     {
-        if (releaseChecker == null)
-            try
-            {
-                releaseChecker = new ReleaseChecker("Adanio", "JshReaper", "Adanio", githubuser.text, githubpass.text);
-            }
-            catch (System.Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                logsTxt.SetText("Did you enter the correct github info?");
-            }
-        KeyValuePair<bool, string> keyValue = LoginSystem.AttemptLogin(username.text, password.text);
-        if (keyValue.Key)
+        try
         {
-            Task t = CheckForRelease(keyValue);
+            releaseChecker = new ReleaseChecker("Adanio", "JshReaper", "Adanio", githubuser.text, githubpass.text);
+            KeyValuePair<bool, string> keyValue = LoginSystem.AttemptLogin(username.text, password.text);
+            if (keyValue.Key)
+            {
+                Task t = CheckForRelease(keyValue);
+            }
+            else
+            {
+                logsTxt.SetText(keyValue.Value);
+            }
+        }
+        catch (System.Exception e)
+        {
+            logsTxt.SetText(e.Message);
         }
     }
     bool download = false;
