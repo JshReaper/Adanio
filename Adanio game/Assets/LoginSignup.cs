@@ -9,6 +9,8 @@ public class LoginSignup : MonoBehaviour
 {
     [SerializeField] TMP_InputField username;
     [SerializeField] TMP_InputField password;
+    [SerializeField] TMP_InputField githubuser;
+    [SerializeField] TMP_InputField githubpass;
 
     [SerializeField] TextMeshProUGUI logsTxt;
 
@@ -17,7 +19,7 @@ public class LoginSignup : MonoBehaviour
     private void Awake()
     {
         LoginSystem.Ip = ip;
-        releaseChecker = new ReleaseChecker("Adanio", "JshReaper", "Adanio");
+
     }
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,19 @@ public class LoginSignup : MonoBehaviour
     }
     public void LoginBtn()
     {
+        if (releaseChecker == null)
+            try
+            {
+                releaseChecker = new ReleaseChecker("Adanio", "JshReaper", "Adanio", githubuser.text, githubpass.text);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                logsTxt.SetText("Did you enter the correct github info?");
+            }
         KeyValuePair<bool, string> keyValue = LoginSystem.AttemptLogin(username.text, password.text);
         if (keyValue.Key)
         {
@@ -41,7 +56,7 @@ public class LoginSignup : MonoBehaviour
     bool download = false;
     async Task CheckForRelease(KeyValuePair<bool, string> keyValue)
     {
-        
+
         Task<bool> t = releaseChecker.CheckIfNewRelease();
 
         await t;
