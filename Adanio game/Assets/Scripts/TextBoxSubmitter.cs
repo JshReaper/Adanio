@@ -33,13 +33,20 @@ public class TextBoxSubmitter : MonoBehaviour
                     break;
                 case "/pm":
                     Instantiate(textUiItem, chatLogParrent.transform).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = input[1] + " => "  + inputField.text.Remove(0,3 + input[1].Length + 1);
+                    FindObjectOfType<ChatClient>().Send("MSG",input[1], inputField.text.Remove(0, 3 + input[1].Length + 1));
                     inputField.text = "";
 
                     break;
                 case "/group":
+                    TMPro.TextMeshProUGUI go = Instantiate(textUiItem, chatLogParrent.transform).GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                    go.text = inputField.text.Remove(0, 6 + input[1].Length + 1);
+                    go.color = Color.green;
+                    FindObjectOfType<ChatClient>().Send("MSGROUP", input[1], inputField.text.Remove(0, 6 + input[1].Length + 1));
+                    inputField.text = "";
                     break;
                 default:
                     Instantiate(textUiItem, chatLogParrent.transform).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = inputField.text;
+                    FindObjectOfType<ChatClient>().Send("MSGALL", "null", inputField.text);
                     inputField.text = "";
                     break;
             }
@@ -50,6 +57,15 @@ public class TextBoxSubmitter : MonoBehaviour
 
 
         }
+    }
+
+    public void IncomingMessage(string output)
+    {
+        Instantiate(textUiItem, chatLogParrent.transform).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = output;
+
+        TextTerminationTimer t = Instantiate(textUiItem, chatLogParrent.transform).GetComponent<TextTerminationTimer>();
+        t.lifeTime = 0;
+        t.readTime = 0;
     }
 
 }

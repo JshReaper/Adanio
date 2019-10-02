@@ -9,7 +9,7 @@ namespace TestMessageClient
 {
     class Program
     {
-        static string serverPath = @"FormatName:Direct=TCP:192.168.0.100\PRIVATE$\globalQueue";
+        static string serverPath = @"FormatName:Direct=TCP:192.168.0.104\PRIVATE$\globalQueue";
         static string localQueue = @".\PRIVATE$\localMessageQueue";
 
         static void Main(string[] args)

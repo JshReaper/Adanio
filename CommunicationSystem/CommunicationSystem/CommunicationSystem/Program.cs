@@ -21,7 +21,8 @@ namespace CommunicationSystem
             }
 
             MessageQueue reciever = new MessageQueue(path);
-            reciever.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
+            reciever.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
+
 
             reciever.ReceiveCompleted += new ReceiveCompletedEventHandler(MyReceiveCompleted);
             Console.WriteLine("Service is ready to recieve commands");
@@ -105,9 +106,11 @@ namespace CommunicationSystem
                         Message msAll;
                         foreach (var co in connections)
                         {
-                            msAll = new Message("MSG:" + from + ":" + co.messageID + ":" + message);
-                            mq.Path = @"FormatName:Direct=OS:" + co.address + @"\PRIVATE$\localMessageQueue";
-                            mq.Send(msAll);
+                            if (co.address != from) {
+                                msAll = new Message("MSG:" + from + ":" + co.messageID + ":" + message);
+                                mq.Path = @"FormatName:Direct=OS:" + co.address + @"\PRIVATE$\localMessageQueue";
+                                mq.Send(msAll);
+                            }
                         }
                         break;
                     case "MSGROUP":
