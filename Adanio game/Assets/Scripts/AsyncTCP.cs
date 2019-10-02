@@ -27,6 +27,17 @@ public class AsyncTCP : MonoBehaviour
         aListener = new AsynchronousSocketListener();
     }
 
+    public void Send()
+    {
+        string message = "Hello, World!";
+        aClient.Send<string>(AsynchronousClient.Client, message);
+        AsynchronousClient.SendDone.WaitOne();
+
+        aClient.Receive(AsynchronousClient.Client);
+        AsynchronousClient.ReceiveDone.WaitOne();
+        Debug.Log(message);
+    }
+
     public void CreateClientExample()
     {
         if (machineName != null)
@@ -34,12 +45,7 @@ public class AsyncTCP : MonoBehaviour
 
         aClient = new AsynchronousClient();
 
-        aClient.Send<string>(AsynchronousClient.Client, "Test message");
-        AsynchronousClient.SendDone.WaitOne();
-
-        aClient.Receive(AsynchronousClient.Client);
-        AsynchronousClient.ReceiveDone.WaitOne();
-        Debug.Log("Done");
+        
     }
 
     private void OnApplicationQuit()
