@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Security;
 
 namespace PatchManager
 {
@@ -58,9 +59,13 @@ namespace PatchManager
         public bool DownloadStatus { get; private set; }
         public bool CheckStatus { get; private set; }
 
-        public ReleaseChecker(string appname, string owner, string reponame)
+        public ReleaseChecker(string appname, string owner, string reponame,string username, string pass)
         {
-            client = new GitHubClient(new ProductHeaderValue(appname + "PatchManager"));
+
+            client = new GitHubClient(new ProductHeaderValue(appname));
+            var basicAuth = new Credentials(username, pass); // NOTE: not real credentials
+            client.Credentials = basicAuth;
+
             path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + appname;
             if (!Directory.Exists(path))
             {
@@ -70,7 +75,7 @@ namespace PatchManager
             this.owner = owner;
             this.reponame = reponame;
         }
-
+        
         public bool IsNewRelease
         {
             get
