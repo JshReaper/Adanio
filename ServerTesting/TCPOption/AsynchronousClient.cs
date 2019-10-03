@@ -21,8 +21,10 @@ namespace TCPOption
     }
     public class AsynchronousClient
     {
-        //static Person examplePerson = new Person();
-        
+
+        public bool ConnectionCompleted { get; private set; }
+                                           //static Person examplePerson = new Person();
+
         public AsynchronousClient()
         {
             
@@ -76,7 +78,8 @@ namespace TCPOption
                 // Connect to the remote endpoint.  
                 client.BeginConnect(remoteEP,
                     new AsyncCallback(ConnectCallback), client);
-                connectDone.WaitOne();
+
+                //connectDone.WaitOne();
 
                 //// Send test data to the remote device.  
                 //Send(client, examplePerson);
@@ -115,6 +118,7 @@ namespace TCPOption
 
                 // Signal that the connection has been made.  
                 connectDone.Set();
+                ConnectionCompleted = true;
             }
             catch (Exception e)
             {
@@ -170,6 +174,7 @@ namespace TCPOption
                     }
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
+                    
                 }
             }
             catch (Exception e)
