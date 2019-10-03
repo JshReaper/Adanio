@@ -44,9 +44,8 @@ public class AsyncTCP : MonoBehaviour
 
     public void CreateClientExample()
     {
-        aClient.ipAddress = ipAdress;
 
-        aClient = new AsynchronousClient();
+        aClient = new AsynchronousClient(ipAdress);
 
         
     }

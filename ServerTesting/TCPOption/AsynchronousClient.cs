@@ -26,9 +26,9 @@ namespace TCPOption
         public bool ConnectionCompleted { get; private set; }
         //static Person examplePerson = new Person();
 
-        public AsynchronousClient()
+        public AsynchronousClient(string ipAddress)
         {
-
+            this.ipAddress = ipAddress;
             StartClient();
         }
 
