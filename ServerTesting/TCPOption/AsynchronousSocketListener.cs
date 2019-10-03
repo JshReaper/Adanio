@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace TCPOption
 {
@@ -16,6 +17,11 @@ namespace TCPOption
         private static Socket listener;
         public static Socket Listener { get { return listener; } }
         public bool EndConnection { get; set; } = false;
+
+        public string DebugMessage { get; private set; }
+        public bool MessageSent { get; set; } = false;
+        public List<Socket> ConnectedClients { get; private set; } = new List<Socket>();
+        
 
         public AsynchronousSocketListener()
         {
@@ -89,10 +95,13 @@ namespace TCPOption
         {
             // Signal the main thread to continue.  
             allDone.Set();
+            
 
             // Get the socket that handles the client request.  
             Socket listener = (Socket)ar.AsyncState;
             Socket handler = listener.EndAccept(ar);
+
+            ConnectedClients.Add(handler);
 
             // Create the state object.  
             StateObject state = new StateObject();
@@ -162,10 +171,9 @@ namespace TCPOption
                 // Complete sending the data to the remote device.  
                 int bytesSent = handler.EndSend(ar);
                 //Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-                
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
 
+                DebugMessage = "Message Received and sent";
+                MessageSent = true;
             }
             catch (Exception e)
             {

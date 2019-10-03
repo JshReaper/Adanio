@@ -19,7 +19,11 @@ public class AsyncTCP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(aListener != null && aListener.MessageSent == true)
+        {
+            Debug.Log(aListener.DebugMessage);
+            aListener.MessageSent = false;
+        }
     }
 
     public void CreateSocketExample()

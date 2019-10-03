@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace TCPOption
 {
@@ -21,13 +22,13 @@ namespace TCPOption
     }
     public class AsynchronousClient
     {
-
+        Dictionary<Socket, object> sendQueue = new Dictionary<Socket, object>();
         public bool ConnectionCompleted { get; private set; }
-                                           //static Person examplePerson = new Person();
+        //static Person examplePerson = new Person();
 
         public AsynchronousClient()
         {
-            
+
             StartClient();
         }
 
@@ -114,11 +115,15 @@ namespace TCPOption
                 client.EndConnect(ar);
 
                 //Console.WriteLine("Socket connected to {0}",
-                    //client.RemoteEndPoint.ToString());
+                //client.RemoteEndPoint.ToString());
 
                 // Signal that the connection has been made.  
                 connectDone.Set();
                 ConnectionCompleted = true;
+                foreach(var item in sendQueue)
+                {
+                    Send(item.Key, item.Value);
+                }
             }
             catch (Exception e)
             {
@@ -174,7 +179,7 @@ namespace TCPOption
                     }
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
-                    
+
                 }
             }
             catch (Exception e)
@@ -214,13 +219,21 @@ namespace TCPOption
 
         public void Send<T>(Socket client, T obj)
         {
-            string json = JsonConvert.SerializeObject(obj);
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(json);
+            if (!client.Connected)
+            {
+                StartClient();
+                sendQueue.Add(client, obj);
+            }
+            else
+            {
+                string json = JsonConvert.SerializeObject(obj);
+                // Convert the string data to byte data using ASCII encoding.  
+                byte[] byteData = Encoding.ASCII.GetBytes(json);
 
-            // Begin sending the data to the remote device.  
-            client.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), client);
+                // Begin sending the data to the remote device.  
+                client.BeginSend(byteData, 0, byteData.Length, 0,
+                    new AsyncCallback(SendCallback), client);
+            }
         }
 
         private void SendCallback(IAsyncResult ar)
