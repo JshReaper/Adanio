@@ -11,7 +11,7 @@ namespace TCPOption
     {
         // Thread signal.  
         IPHostEntry ipHostInfo;
-        IPAddress ipAddress;
+        public IPAddress ipAddress { get; private set; }
         IPEndPoint localEndPoint;
         public static ManualResetEvent allDone = new ManualResetEvent(false);
         private static Socket listener;
@@ -54,6 +54,8 @@ namespace TCPOption
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(100);
+                DebugMessage = ipAddress.ToString();
+                MessageSent = true;
 
                 while (true)
                 {
@@ -106,6 +108,8 @@ namespace TCPOption
             // Create the state object.  
             StateObject state = new StateObject();
             state.workSocket = handler;
+
+            
 
             handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                 new AsyncCallback(ReadCallback), state);

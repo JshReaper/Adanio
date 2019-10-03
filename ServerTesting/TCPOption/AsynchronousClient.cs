@@ -35,6 +35,7 @@ namespace TCPOption
 
         // The port number for the remote device.  
         private const int port = 11573;
+        public string ipAddress { get; set; }
         private static Socket client;
         public static Socket Client { get { return client; } }
 
@@ -68,12 +69,11 @@ namespace TCPOption
                 // Establish the remote endpoint for the socket.  
                 // The name of the   
                 // remote device is "host.contoso.com".  
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(MachineName);
-                IPAddress ipAddress = ipHostInfo.AddressList[1];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+                //IPHostEntry ipHostInfo = Dns.GetHostEntry(MachineName);
+                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse(ipAddress), port);
 
                 // Create a TCP/IP socket.  
-                client = new Socket(ipAddress.AddressFamily,
+                client = new Socket(IPAddress.Parse(ipAddress).AddressFamily,
                     SocketType.Stream, ProtocolType.Tcp);
 
                 // Connect to the remote endpoint.  

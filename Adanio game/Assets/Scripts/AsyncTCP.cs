@@ -9,7 +9,7 @@ public class AsyncTCP : MonoBehaviour
     private AsynchronousClient aClient;
 
     [SerializeField]
-    private string machineName;
+    private string ipAdress;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,8 +44,7 @@ public class AsyncTCP : MonoBehaviour
 
     public void CreateClientExample()
     {
-        if (machineName != null)
-            AsynchronousClient.MachineName = machineName;
+        aClient.ipAddress = ipAdress;
 
         aClient = new AsynchronousClient();
 
