@@ -2,14 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCamera : BoltSingletonPrefab<PlayerCamera>
+public class PlayerCamera : MonoBehaviour
 {
-    void Awake()
+    private GameObject player;
+    private Vector3 offset;
+
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
-    public void SetTarget(BoltEntity entity)
+
+    public void SetTarget(GameObject go)
     {
-        //TODO set cam to follow player
+        player = go;
+
+        offset = new Vector3(0, 0, -10);
+    }
+
+    private void LateUpdate()
+    {
+        if (player)
+            transform.position = player.transform.position + offset;
     }
 }

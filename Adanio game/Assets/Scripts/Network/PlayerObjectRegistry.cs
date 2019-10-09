@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
 
-
 public static class PlayerObjectRegistry
 {
     // keeps a list of all the players
-    static List<PlayerObject> players = new List<PlayerObject>();
+    private static readonly List<PlayerObject> players = new List<PlayerObject>();
 
     // create a player for a connection
     // note: connection can be null
-    static PlayerObject CreatePlayer(BoltConnection connection)
+    private static PlayerObject CreatePlayer(BoltConnection connection)
     {
-        PlayerObject player;
-
         // create a new player object, assign the connection property
         // of the object to the connection was passed in
-        player = new PlayerObject();
-        player.connection = connection;
+        PlayerObject player = new PlayerObject
+        {
+            connection = connection
+        };
 
         // if we have a connection, assign this player
         // as the user data for the connection so that we
